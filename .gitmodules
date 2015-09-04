@@ -1,0 +1,13 @@
+[submodule "reactive-cqrs"]
+	path = reactive-cqrs
+	url = ../../reactive-cqrs
+[submodule "slides/reveal.js"]
+	path = slides/reveal.js
+	url = git@github.com:strongtyped/reveal.js.git
+[submodule "slides/asciidoctor-reveal.js"]
+	path = slides/asciidoctor-reveal.js
+	url = git@github.com:strongtyped/asciidoctor-reveal.js.git
+[submodule "strongtyped.github.io"]
+	path = strongtyped.github.io
+	url = git@github.com:strongtyped/strongtyped.github.io.git
+	branch = source
