@@ -1,6 +1,3 @@
-[submodule "reactive-cqrs"]
-	path = reactive-cqrs
-	url = ../../reactive-cqrs
 [submodule "slides/reveal.js"]
 	path = slides/reveal.js
 	url = git@github.com:strongtyped/reveal.js.git
