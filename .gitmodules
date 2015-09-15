@@ -8,3 +8,6 @@
 	path = strongtyped.github.io
 	url = git@github.com:strongtyped/strongtyped.github.io.git
 	branch = source
+[submodule "fun-cqrs"]
+	path = fun-cqrs
+	url = git@github.com:strongtyped/fun-cqrs.git
