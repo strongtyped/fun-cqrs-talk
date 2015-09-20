@@ -131,8 +131,10 @@ It has a <em>root</em> and zero or more entities and value objects underneath</p
 <div class="paragraph"><p>They will probably arrive before the first order is created.
 Should we query the <em>CustomerViewRepo</em> and <em>ProductViewReop</em> whenever we need more info?</p></div>
 <div class="paragraph"><p>Will they reflect the expected state?</p></div></section><section id="_solutions"><h2>Solutions</h2><div class="olist arabic"><ol class="arabic"><li class="fragment"><p>Have one single event stream and one consumer</p></li><li class="fragment"><p>Implement specific logic for each single event for each view</p></li><li class="fragment"><p>Copy data by reusing existing projections, but saving in another Repository</p></li><li class="fragment"><p>Synchronous views, at least the main views (serious?)</p></li></ol></div></section></section>
-<section id="_thank_you"><h2>Thank you!</h2><div class="paragraph"><p>@renatocaval</p></div>
-<div class="paragraph"><p>ps: will publish code and slides soon! :-)</p></div></section></div></div><script src="reveal.js/lib/js/head.min.js"></script><script src="reveal.js/js/reveal.js"></script><script>// See https://github.com/hakimel/reveal.js#configuration for a full list of configuration options
+<section id="_thank_you"><h2>Thank you!</h2><div class="paragraph"><p><a href="http://twitter.com/@renatocaval" class="bare">http://twitter.com/@renatocaval</a></p></div>
+<div class="paragraph"><p><a href="http://github.com/rcavalcanti" class="bare">http://github.com/rcavalcanti</a></p></div>
+<div class="paragraph"><p><a href="http://github.com/strongtyped" class="bare">http://github.com/strongtyped</a></p></div>
+<div class="paragraph"><p><a href="https://github.com/strongtyped/fun-cqrs" class="bare">https://github.com/strongtyped/fun-cqrs</a></p></div></section></div></div><script src="reveal.js/lib/js/head.min.js"></script><script src="reveal.js/js/reveal.js"></script><script>// See https://github.com/hakimel/reveal.js#configuration for a full list of configuration options
 Reveal.initialize({
   // Display controls in the bottom right corner
   controls: true,

@@ -191,6 +191,10 @@ Will they reflect the expected state?
 
 == Thank you!
 
-@renatocaval
+http://twitter.com/@renatocaval
 
-ps: will publish code and slides soon! :-)
+http://github.com/rcavalcanti
+
+http://github.com/strongtyped
+
+https://github.com/strongtyped/fun-cqrs
