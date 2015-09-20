@@ -4,10 +4,6 @@
 [submodule "slides/asciidoctor-reveal.js"]
 	path = slides/asciidoctor-reveal.js
 	url = git@github.com:strongtyped/asciidoctor-reveal.js.git
-[submodule "strongtyped.github.io"]
-	path = strongtyped.github.io
-	url = git@github.com:strongtyped/strongtyped.github.io.git
-	branch = source
 [submodule "fun-cqrs"]
 	path = fun-cqrs
 	url = git@github.com:strongtyped/fun-cqrs.git

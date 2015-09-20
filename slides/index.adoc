@@ -1,0 +1,196 @@
+
+:revealjs_theme: styped
+:source-highlighter: pygments
+:pygments-style: monokai
+:revealjs_history: true
+:revealjs_center: false
+
+== Fun.CQRS
+
+Functional and Fun CQRS in Scala
+
+== Agenda
+
+* DDD / CQRS / Event Sourcing
+* Aggregates / Commands / Events in Scala
+* Akka and asynchrounous programming
+* Akka Persistence and Event Sourcing
+
+[NOTE.speaker]
+--
+Short intro to agenda.
+--
+
+== Not About
+
+* Akka Typed
+* "Function and Reactive Domain Modeling" - Debasish Ghosh
+
+== DDD / CQRS / ES
+
+[%step]
+* Aggregate is a *DDD* concept.
+	It has a _root_ and zero or more entities and value objects underneath
+* Commands and Events are used in CQRS
+* Events can be persisted and replayed
+
+=== Event Driven / Sourcing
+
+[%step]
+* CQRS is Event Driven, but not necessarily implements Event Sourcing
+* in *synchronous* CQRS:
+	** tx(Cmd => Aggregate => Event => View)
+* in *asynchronous* CQRS:
+	** tx(Cmd => Aggregate => Event)
+	** tx(Event => View)
+
+== Scala and CQRS
+
+On creation
+[source, language="scala"]
+Cmd => Event
+Event => Aggregate
+// therefore we have
+Cmd => (Aggregate, Event)
+
+Post-creation
+[source, language="scala"]
+(Aggregate, Cmd) => Seq[Event]
+(Aggregate, Event) => Aggregate
+// therefore we have
+(Aggregate, Cmd) => (Aggregate, Seq[Event])
+
+
+=== Async API
+
+On creation
+[source, language="scala"]
+Cmd => Future[Event]
+Event => Aggregate
+// therefore we have
+Cmd => Future[(Aggregate, Event)]
+
+Post-creation
+[source, language="scala"]
+(Aggregate, Cmd) => Future[Seq[Event]]
+(Aggregate, Event) => Aggregate
+// therefore we have
+(Aggregate, Cmd) => Future[(Aggregate, Seq[Event])]
+
+=== Async API - inconvenience
+
+On creation
+[source, language="scala"]
+(cmd:CreateFoo) => Future.successful(FooCreated("foo"))
+
+Post-creation
+[source, language="scala"]
+(foo:Foo, cmd:ChangeName) => Future.successful(Seq(FooNameChanged("bar")))
+
+
+=== Sync/Async API - Lift
+
+On creation
+[source, language="scala"]
+Cmd => Event
+Cmd => Future[Event]
+// Yeah!!
+Cmd => Throwable
+
+Post-creation
+[source, language="scala"]
+(Aggregate, Cmd) => Event
+(Aggregate, Cmd) => Seq[Event]
+(Aggregate, Cmd) => Future[Event]
+(Aggregate, Cmd) => Future[Seq[Event]]
+// Yeah!!
+(Aggregate, Cmd) => Throwable
+
+== Akka and DDD/CQRS
+
+[%step]
+* Is the Aggregate an Actor?
+* Or does it live inside an Actor?
+* If it lives inside an Actor, the Actor must know it's hosting an Aggregate
+* Akka Persistence for Event Sourcing
+* Akka Persistence Query for generating Views
+	(experimental)
+
+=== Protocol and Behavior
+
+* Protocol is the set of commands and events for a given Aggregate
+* Behavior is the implementation
+  ** Conditions to accept commands
+  ** Possible failures
+  ** Modify Aggregate state
+
+=== Protocol and Behavior
+
+----
+include::aggregate-protocol-behavior.txt[]
+----
+
+=== AggregateManager
+
+* Create AggregateActors by id
+* Forward messages to right AggregateActors
+----
+include::aggregate-manager.txt[]
+----
+
+=== AggregateActor
+
+* AggregateActor is initialized with Behavior of Foo
+* Responsible for Foo lifecycle and events storing
+----
+include::aggregate-actor.txt[]
+----
+Protocol messages are sent to Actor and applied to Aggregate through its Behavior
+
+=== Projections
+
+[%step]
+* We read from the Event Store to produce Views
+* Akka Persistence Query new experimental module
+* Produces a Reactive Stream source with the selected events
+
+=== Shop Aggregates
+
+[%step]
+* Customer
+  ** just info from a customer
+* Product
+  ** create, change name and change price
+* Order (references Customer and Products by identifier)
+  ** created for a customer
+  ** add / remove products
+  ** execute / cancel
+
+=== Shop Projections
+
+* Customer Aggregate event -> _CustomerView_
+* Product Aggregate event -> _ProductView_
+* Customer, Product and Order events -> _OrderView_
+
+=== Problem with OrderViewProjection
+
+What to do with Events from _Customer_ and _Product_?
+
+They will probably arrive before the first order is created.
+Should we query the _CustomerViewRepo_ and _ProductViewReop_ whenever we need more info?
+
+Will they reflect the expected state?
+
+=== Solutions
+
+[%step]
+1. Have one single event stream and one consumer
+2. Implement specific logic for each single event for each view
+3. Copy data by reusing existing projections, but saving in another Repository
+4. Synchronous views, at least the main views (serious?)
+
+== Thank you!
+
+@renatocaval
+
+ps: will publish code and slides soon! :-)

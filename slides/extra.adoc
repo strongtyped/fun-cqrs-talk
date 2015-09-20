@@ -1,0 +1,59 @@
+
+:revealjs_theme: styped
+:source-highlighter: pygments
+:pygments-style: monokai
+:revealjs_history: true
+:revealjs_center: false
+
+
+== Domain Driven Design
+
+[%step]
+* Popular in OO world, but not only limited to it
+* It's all about building a system that 'speaks' a language. The ubiquitous language.
+
+=== DDD - Aggregate
+
+[%step]
+* Aggregate central concept in a DDD.
+* it has a _root_ and zero or more entities and value objects underneath
+* Reponsible for the consistency of underneath objects
+* You can only change one Aggregate per transaction
+
+// illustrate with diagram
+
+=== CQRS
+
+[%step]
+* Command Query Responsibility Segregation
+* Hard to pronnounce acronym
+* "It is simply the creation of two objects where there was previously only one" - Greg Young
+
+[NOTE.speaker]
+--
+Explaing CQS from Bertrand Meyer
+CQS puts commands and queries in different methods within a type.
+CQRS puts commands and queries on different objects.
+--
+
+
+=== DDD / CQRS
+
+[%step]
+* Aggregates are the Write model
+* It receives commands and validate them against current state
+* Valid commands are *mapped* to Events that are applied to the Aggregate changing its state
+* Events are used to update the Read model (Views)
+* Data is modified in a controlled fashion
+	(consistency boundary)
+
+
+=== Event Driven / Sourcing
+
+[%step]
+* CQRS is Event Driven, but not necessarily Event Sourcing
+* in synchronous CQRS:
+	tx(Cmd | Aggregate | Event | View)
+* in asynchronous CQRS:
+tx(Cmd | Aggregate | Event)
+tx(Event | View)
