@@ -1,0 +1,8 @@
+:revealjs_theme: styped
+:source-highlighter: pygments
+:pygments-style: monokai
+:revealjs_history: true
+:revealjs_center: false
+
+
+include::content.adoc[]

@@ -1,10 +1,4 @@
 
-:revealjs_theme: styped
-:source-highlighter: pygments
-:pygments-style: monokai
-:revealjs_history: true
-:revealjs_center: false
-
 == Fun.CQRS
 
 Functional and Fun CQRS in Scala
@@ -127,7 +121,7 @@ Post-creation
 === Protocol and Behavior
 
 ----
-include::aggregate-protocol-behavior.txt[]
+include::diagrams/aggregate-protocol-behavior.txt[]
 ----
 
 === AggregateManager
@@ -135,7 +129,7 @@ include::aggregate-protocol-behavior.txt[]
 * Create AggregateActors by id
 * Forward messages to right AggregateActors
 ----
-include::aggregate-manager.txt[]
+include::diagrams/aggregate-manager.txt[]
 ----
 
 === AggregateActor
@@ -143,7 +137,7 @@ include::aggregate-manager.txt[]
 * AggregateActor is initialized with Behavior of Foo
 * Responsible for Foo lifecycle and events storing
 ----
-include::aggregate-actor.txt[]
+include::diagrams/aggregate-actor.txt[]
 ----
 Protocol messages are sent to Actor and applied to Aggregate through its Behavior
 
