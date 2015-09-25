@@ -179,16 +179,17 @@ Will they reflect the expected state?
 
 [%step]
 1. Have one single event stream and one consumer
+  ** can be a serious bottleneck
 2. Implement specific logic for each single event for each view
+  ** can lead to increasing complexity
 3. Copy data by reusing existing projections, but saving in another Repository
-4. Synchronous views, at least the main views (serious?)
+  ** need for more storage, but simpler and reusable code
+  ** Demo project uses that approach (check it)
+4. Synchronous views, at least the main views
+  ** Response time penalty, but better user feedback
 
 == Thank you!
 
 http://twitter.com/@renatocaval
-
-http://github.com/rcavalcanti
-
-http://github.com/strongtyped
 
 https://github.com/strongtyped/fun-cqrs

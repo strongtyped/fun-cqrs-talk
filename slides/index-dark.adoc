@@ -4,5 +4,4 @@
 :revealjs_history: true
 :revealjs_center: false
 
-
 include::content.adoc[]
